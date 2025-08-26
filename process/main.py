@@ -373,18 +373,18 @@ def decision_loop():
             last_emit = now
 
 def main():
-    ths = [
-        threading.Thread(target=audio_producer, daemon=True),
-        threading.Thread(target=video_producer, daemon=True),
-        threading.Thread(target=serial_producer, daemon=True),
-        threading.Thread(target=decision_loop, daemon=True),
-    ]
-    
-    # === 테스트 시나리오 (정상→WARNING→ALERT) ===
     # ths = [
-    #     threading.Thread(target=test_scenario_producer, daemon=True),
+    #     threading.Thread(target=audio_producer, daemon=True),
+    #     threading.Thread(target=video_producer, daemon=True),
+    #     threading.Thread(target=serial_producer, daemon=True),
     #     threading.Thread(target=decision_loop, daemon=True),
     # ]
+    
+    # === 테스트 시나리오 (정상→WARNING→ALERT) ===
+    ths = [
+        threading.Thread(target=test_scenario_producer, daemon=True),
+        threading.Thread(target=decision_loop, daemon=True),
+    ]
     for t in ths: t.start()
 
     print("Running... Press Ctrl+C to stop.")
